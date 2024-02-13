@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album{% endblock %}
+
+{% block body %}
+
+    <header>
+        <h1>{{ nom }}</h1>
+        <h2>{{ artistes }}</h2>
+    </header>
+
+    <main>
+        <section id="album-info">
+            <div class="album-cover">
+                <img src="album-cover.jpg" alt="Album Cover">
+            </div>
+            <div class="album-details">
+                <p><strong>Fruit:</strong> {{ fruit }}</p>
+                <p><strong>Annee:</strong> {{ annee }}</p>
+                <p><strong>Genre:</strong> {{ genre }}</p>
+                <p><strong>Label:</strong> {{ label }}</p>
+                <p><strong>Format:</strong> {{ format }}</p>
+            </div>
+        </section>
+
+        <section id="tracklist">
+            <h2>Tracklist</h2>
+            <ol>
+                <li>{{ tracklist }}</li>
+            </ol>
+        </section>
+
+        <section id="description">
+            <h2>Description</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec lectus vitae arcu imperdiet iaculis. Nulla facilisi. Sed sit amet sem id purus tempus efficitur. Nullam sit amet sapien metus. Duis tempor, quam non maximus vehicula, eros risus tincidunt est, vel hendrerit ipsum elit nec libero.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TuttiFrutti</p>
+    </footer>
+
+{% endblock %}
