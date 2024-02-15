@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche d'albums{% endblock %}
+
+{% block body %}
+    <h1>Recherche d'albums</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.fruit) }}
+    {{ form_row(form.search) }}
+    {{ form_end(form) }}
+{% endblock %}

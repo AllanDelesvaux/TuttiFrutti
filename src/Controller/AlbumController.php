@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Album;
+use App\Form\SearchFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class AlbumController extends AbstractController
 {
@@ -17,8 +18,8 @@ class AlbumController extends AbstractController
     public function createAlbum(EntityManagerInterface $entityManager): Response
     {
         $album = new Album();
-        $album->setNom('Test');
-        $album->setFruit('');
+        $album->setNom('3');
+        $album->setFruit('banane');
         $album->setAnnee('');
         $album->setArtistes('');
         $album->setLabel('');
@@ -90,6 +91,35 @@ class AlbumController extends AbstractController
             'genre' => $album->getGenre(),
             'format' => $album->getFormat(),
             'tracklist' => $album->getTracklist(),
+        ]);
+    }
+
+    
+    #[Route("/albumsearch", name:"album_search")]
+    public function search(Request $request): Response
+    {
+        $form = $this->createForm(SearchFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $fruit = $form->get('fruit')->getData();
+            return $this->redirectToRoute('album_results', ['Fruit' => $fruit]);
+        }
+
+        return $this->render('accueil/search.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/albumresult/{Fruit}', name: 'album_results')]
+    public function findAllByFruit(EntityManagerInterface $entityManager, string $Fruit): Response
+    {
+
+        $albums = $entityManager->getRepository(Album::class)->findBy(['Fruit' => $Fruit]);
+
+        return $this->render('accueil/results.html.twig', [
+            'albums' => $albums,
+            'fruit' => $Fruit,
         ]);
     }
 }
