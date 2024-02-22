@@ -3,46 +3,145 @@
 {% block title %}Album{% endblock %}
 
 {% block body %}
+<!-- Navbar -->
 
-    <body>
+<style>
+        .custom-navbar {
+            background-color: #FEFCBB; 
+        }
+    </style>
 
-    <form action="{{ path('search_in_api') }}">
-        <button type="submit">Back to Search Page</button>
-    </form>
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="/">
+      <img
+        src="{{ asset('images/logo.png') }}"
+        height="90" 
+        alt="TuttiFrutti Logo"
+        loading="lazy"
+        style="margin-top: -1px;"
+      />
+    </a>
 
-    <h2>Total de résultat pour {{ userResearch }} : {{ searchSize }}</h2>
+    <!-- Toggle button -->
+    <button
+      data-mdb-collapse-init
+      class="navbar-toggler"
+      type="button"
+      data-mdb-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
 
-    {% for album in albumList %}
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+        </li>
+      </ul>
+      <!-- Left links -->
 
-        {% if album['cover_image'] is defined %}
-            <img src='{{ album["cover_image"] }}' width='250' height='250'/>
-        {% else %}
-            <p>Pochette non renseignée</p>
-        {% endif %}
+      <div class="d-flex align-items-center">
+        <a href="/searchingPage" type="button" class="btn btn-success btn-block gradient-custom-4 me-3">Back to Search Page</a>
+        
+        <a
+          data-mdb-ripple-init
+          class="btn btn-dark px-3"
+          href="https://www.discogs.com/"
+          role="button"
+          ><i class="fab fa-github"></i
+        >Discogs</a>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
 
+<div class="container">  
+    <div class="row flex-lg-nowrap">
+      <div class="col mb-3">
+        <div class="e-panel card">
+          <div class="card-body">
+            <div class="card-title">
+              <h6 class="mr-2">Résultats pour la recherche {{userResearch}} : {{searchSize}}</h6>
+            </div>
+            <div class="e-table">
+              <div class="table-responsive table-lg mt-3">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Photo</th>
+                      <th class="max-width">Name</th>
+                      <th class="sortable">Date</th>
+                      <th>Favoris</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   {% for album in albumList %}
+                    <tr>
+                      <td class="align-middle text-center">
+                        {% if album['cover_image'] is defined %}
+                        <img src='{{ album["cover_image"] }}' width='240'/>
+                        {% else %}
+                        <p>Pochette non renseignée</p>
+                        {% endif %}
+                      </td>
+                      <td class="text-nowrap align-middle">
+                        {% if album['title'] is defined %}
+                            <p>{{ album['title'] }}</p>
+                        {% else %}
+                            <p>Titre non renseigné</p>
+                        {% endif %}</td>
 
-        {% if album['title'] is defined %}
-            <p>{{ album['title'] }}</p>
-        {% else %}
-            <p>Titre non renseigné</p>
-        {% endif %}
+                      <td class="text-nowrap align-middle">
+                        {% if album['year'] is defined %}
+                            <p>{{ album['year'] }}</p>
+                        {% else %}
+                            <p>Date de sortie non renseignée</p>
+                        {% endif %}</td>
 
+                      <td class="text-center align-middle">
+                      <a href="/" class="btn btn-outline-danger btn-sm btn-block mb-2" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 mr-1">
+                            <path d="M15.94,10.179l-2.437-0.325l1.62-7.379c0.047-0.235-0.132-0.458-0.372-0.458H5.25c-0.241,0-0.42,0.223-0.373,0.458l1.634,7.376L4.06,10.179c-0.312,0.041-0.446,0.425-0.214,0.649l2.864,2.759l-0.724,3.947c-0.058,0.315,0.277,0.554,0.559,0.401l3.457-1.916l3.456,1.916c-0.419-0.238,0.56,0.439,0.56-0.401l-0.725-3.947l2.863-2.759C16.388,10.604,16.254,10.22,15.94,10.179M10.381,2.778h3.902l-1.536,6.977L12.036,9.66l-1.655-3.546V2.778z M5.717,2.778h3.903v3.335L7.965,9.66L7.268,9.753L5.717,2.778zM12.618,13.182c-0.092,0.088-0.134,0.217-0.11,0.343l0.615,3.356l-2.938-1.629c-0.057-0.03-0.122-0.048-0.184-0.048c-0.063,0-0.128,0.018-0.185,0.048l-2.938,1.629l0.616-3.356c0.022-0.126-0.019-0.255-0.11-0.343l-2.441-2.354l3.329-0.441c0.128-0.017,0.24-0.099,0.295-0.215l1.435-3.073l1.435,3.073c0.055,0.116,0.167,0.198,0.294,0.215l3.329,0.441L12.618,13.182z"></path>
+                        </svg>Ajouter aux favoris</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <div class="d-flex justify-content-center">
+                <ul class="pagination mt-3 mb-0">
+                  <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
+                  <li class="active page-item"><a href="#" class="page-link">1</a></li>
+                  <li class="page-item"><a href="#" class="page-link">2</a></li>
+                  <li class="page-item"><a href="#" class="page-link">3</a></li>
+                  <li class="page-item"><a href="#" class="page-link">›</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
-        {% if album['year'] is defined %}
-            <p>{{ album['year'] }}</p>
-        {% else %}
-            <p>Date de sortie non renseignée</p>
-        {% endif %}
-
-        <button>Ajouter aux favoris</button>
-        <hr>
-        <br>
-    {% endfor %}
-
-    </body>
-
-    <footer>
-        <p>&copy; 2024 TuttiFrutti</p>
-    </footer>
+<footer class="bg-body-tertiary text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-body" href="/">TuttiFrutti.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
 
 {% endblock %}
