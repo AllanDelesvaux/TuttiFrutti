@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class APIController extends AbstractController
 {
     public array $searchInformation;
-    #[Route(path: '/search/{fruit}', name: 'fruit_content')]
+    #[Route(path: '/searchingPage/{fruit}', name: 'fruit_content')]
     public function apiContent(APIAccess $apiAccess, string $fruit): Response
     {
         $this->searchInformation = $apiAccess->fetchDiscogsInformation($fruit);
