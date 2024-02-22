@@ -2,8 +2,6 @@
 
 namespace App\Service;
 
-use App\Controller\APIController;
-use PhpParser\Node\Scalar\String_;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class APIAccess
@@ -15,9 +13,16 @@ class APIAccess
 
     public function fetchDiscogsInformation(): array
     {
+        if(isset($_GET['q'])){
+            $externalURL = 'https://api.discogs.com/database/search?q=' . $_GET['q'] . '&type=release&token=' . $this->TOKEN;
+        }
+        else {
+            $externalURL = 'https://api.discogs.com/database/search?type=release&token=' . $this->TOKEN;
+        }
+
         $response = $this->client->request(
             'GET',
-            'https://api.discogs.com/database/search?q=' . $_GET['q'] . '&type=release&token=' . $this->TOKEN,
+            $externalURL,
         );
 
         $content = $response->toArray();
