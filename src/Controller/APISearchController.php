@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class APISearchController extends AbstractController
 {
     public string $userResearch = "";
-    #[Route(path: '/searchingPage/', name: 'search_in_api')]
+    #[Route(path: '/searchingPage', name: 'search_in_api')]
     public function apiContent(): Response
     {
         if(isset($_GET['q'])){
