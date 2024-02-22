@@ -62,7 +62,6 @@ class AlbumController extends AbstractController
                 'No album found for id '.$id
             );
         }
-
         $album->setNom('Arise');
         $album->setFruit('Fraise');
         $album->setAnnee('2021');
@@ -76,6 +75,28 @@ class AlbumController extends AbstractController
         return $this->redirectToRoute('album_show', [
             'id' => $album->getId()
         ]);
+    }
+
+    ///DELETE/// 
+    #[Route('/albumfavdelete/{id}', name: 'album_delete')]
+    public function delete(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $album = $entityManager->getRepository(Album::class)->find($id);
+
+        if (!$album) {
+            throw $this->createNotFoundException(
+                'No album found for id '.$id
+            );
+        }
+
+        $user = $this->getUser();
+        if($user->getUserAlbum()->contains($album)){
+            $user->removeUserAlbum($album);
+            $entityManager->flush();
+
+            return new Response('Album fav succefully deleted : '.$album->getNom());
+        }
+        return new Response('Error : Album not deleted on fav');
     }
 
     #[Route('/album', name: 'app_album')]
