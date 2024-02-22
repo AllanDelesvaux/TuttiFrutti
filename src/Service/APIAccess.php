@@ -10,22 +10,16 @@ class APIAccess
 {
     private string $TOKEN = "fbaoICPwwVSWanVBSHQtfRQJCBZIqTscGBlCCpqA";
 
-    public function __construct(private HttpClientInterface $client,) {
+    public function __construct(private readonly HttpClientInterface $client,) {
     }
 
     public function fetchDiscogsInformation(): array
     {
-        $controller = new APIController();
         $response = $this->client->request(
             'GET',
-            'https://api.discogs.com/database/search?q=Nirvana&type=release&token=' . $this->TOKEN,
+            'https://api.discogs.com/database/search?q=' . $_GET['q'] . '&type=release&token=' . $this->TOKEN,
         );
 
-        $statusCode = $response->getStatusCode();
-        // $statusCode = 200
-        $contentType = $response->getHeaders()['content-type'][0];
-        // $contentType = 'application/json'
-        // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 

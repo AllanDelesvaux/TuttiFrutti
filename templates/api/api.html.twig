@@ -5,13 +5,42 @@
 {% block body %}
 
     <header>
-        <img src='{{ coverImage }}'/>
-
-        <h1>{{ title }}</h1>
-        <h1>{{ fruit }}</h1>
-        <h1>{{ year }}</h1>
-
+        <form method="GET">
+            <input type="search" name="q" placeholder="Rechercher un fruit..." />
+            <input type="submit" value="Valider" />
+        </form>
     </header>
+
+    <br>
+    <body>
+    {% for album in albumList %}
+
+        {% if album['cover_image'] is defined %}
+            <img src='{{ album["cover_image"] }}' width='250' height='250'/>
+        {% else %}
+            <p>Pochette non renseignée</p>
+        {% endif %}
+
+
+        {% if album['title'] is defined %}
+            <p>{{ album['title'] }}</p>
+        {% else %}
+            <p>Titre non renseigné</p>
+        {% endif %}
+
+
+        {% if album['year'] is defined %}
+            <p>{{ album['year'] }}</p>
+        {% else %}
+            <p>Date de sortie non renseignée</p>
+        {% endif %}
+
+        <button>Ajouter aux favoris</button>
+        <hr>
+        <br>
+    {% endfor %}
+
+    </body>
 
     <footer>
         <p>&copy; 2024 TuttiFrutti</p>
