@@ -25,4 +25,21 @@ class APIAccess
 
         return $content["results"];
     }
+
+    public function fetchDiscogsWithId(int $id): array
+    {
+        $externalURL = 'https://api.discogs.com/releases/'.$id.'?token='. $this->TOKEN;
+
+        $response = $this->client->request(
+            'GET',
+            $externalURL,
+        );
+
+        $content = $response->toArray();
+        // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
+
+        return $content;
+    }
+
+
 }

@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album{% endblock %}
+
+{% block body %}
+<!-- Navbar -->
+
+<style>
+        .custom-navbar {
+            background-color: #FEFCBB; 
+        }
+    </style>
+
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="/">
+      <img
+        src="{{ asset('images/logo.png') }}"
+        height="90" 
+        alt="TuttiFrutti Logo"
+        loading="lazy"
+        style="margin-top: -1px;"
+      />
+    </a>
+
+    <!-- Toggle button -->
+    <button
+      data-mdb-collapse-init
+      class="navbar-toggler"
+      type="button"
+      data-mdb-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <div class="d-flex align-items-center">
+        <a href="/logout" data-mdb-ripple-init type="button" class="btn btn-success btn-block gradient-custom-4 me-3">
+          Se déconnecter
+        </a>
+        <a href="/searchingPage" data-mdb-ripple-init type="button" class="btn btn-success btn-block gradient-custom-4 me-3">
+          Découvrir
+        </a>
+        
+        <a
+          data-mdb-ripple-init
+          class="btn btn-dark px-3"
+          href="https://www.discogs.com/"
+          role="button"
+          ><i class="fab fa-github"></i
+        >Discogs</a>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+<div class="container">
+<div class="row gutters">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+		<div class="account-settings">
+			<div class="user-profile">
+				<div class="user-avatar">
+					<img src="https://bootdey.com/img/Content/avatar/avatar7.png" height="120" alt="Maxwell Admin">
+				</div>
+				<h5 class="user-name">{{ user.username }}</h5>
+				<h6 class="user-email">{{ user.username }}@mail.com</h6>
+			</div>
+			<div class="about">
+				<h5>A propos</h5>
+				<p>J'adore les musiques qui comportent des fruits :)</p>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+            <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Albums favoris</span></h2>
+            <!-- Item-->
+            {% if albums is empty %}
+                    <p>Aucuns albums favoris.</p>
+            {% else %}
+              {% for album in albums %}
+              <div class="row position-relative mt-n1-9 mb-2">
+                <div class="media d-block d-sm-flex text-center text-sm-left">
+                    <a class="col-md-6 col-lg-4 mt-1-9" href="#"><img src="{% if album.url is null %} {% else %}{{  album.url }} {% endif %} " height="240" alt="Album"></a>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <h2 class="text-center text-muted ">{{ album.nom }}</h2>
+                        <ol>
+                        <li ><span>Fruit:</span>{{ album.fruit }}</li>
+                        <li ><span >Annee:</span>{{ album.annee }}</li>
+                        <li ><span >Artistes:</span>{{ album.artistes }}</li>
+                        <li ><span >Label:</span>{{ album.label }}</li>
+                        <li ><span >Genre:</span>{{ album.genre }}</li>
+                        <li ><span >Format:</span>{{ album.format }}</li>
+                        </ol>
+                    </div>
+                    <div class="text-center text-muted"><span >
+                        <h2>Tracklist</h2>
+                        <div><span class="text-muted mr-2"></span>{{ album.tracklist }}</div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 mt-1-9" style="max-width: 10rem;">
+                    <a href="/album/albumfavdelete/{{album.id}}" class="btn btn-outline-danger btn-sm btn-block mb-2" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 mr-1">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>Supprimer Favori</a>
+                    </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% endif %}
+	</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="bg-body-tertiary text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-body" href="/">TuttiFrutti.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+{% endblock %}

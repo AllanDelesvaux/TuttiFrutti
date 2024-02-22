@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Album;
-use App\Entity\User;
 use App\Form\SearchFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +14,7 @@ class AlbumController extends AbstractController
 {
 
     ///CREATE/// 
-    #[Route('/createAlbum', name: 'create_album')]
+    #[Route('/album/createAlbum', name: 'create_album')]
     public function createAlbum(EntityManagerInterface $entityManager): Response
     {
         $album = new Album();
@@ -78,7 +77,7 @@ class AlbumController extends AbstractController
     }
 
     ///DELETE/// 
-    #[Route('/albumfavdelete/{id}', name: 'album_delete')]
+    #[Route('/album/albumfavdelete/{id}', name: 'album_delete')]
     public function delete(EntityManagerInterface $entityManager, int $id): Response
     {
         $album = $entityManager->getRepository(Album::class)->find($id);
@@ -105,37 +104,10 @@ class AlbumController extends AbstractController
         $user = $this->getUser();
         $albums = $user->getUserAlbum();
 
-        return $this->render('album/accueil.html.twig', [
+        return $this->render('album/profile.html.twig', [
             'user' => $user,
             'albums' => $albums,
         ]);
     }
     
-    #[Route("/albumsearch", name:"album_search")]
-    public function search(Request $request): Response
-    {
-        $form = $this->createForm(SearchFormType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $fruit = $form->get('fruit')->getData();
-            return $this->redirectToRoute('album_results', ['Fruit' => $fruit]);
-        }
-
-        return $this->render('album/search.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/albumresult/{Fruit}', name: 'album_results')]
-    public function findAllByFruit(EntityManagerInterface $entityManager, string $Fruit): Response
-    {
-
-        $albums = $entityManager->getRepository(Album::class)->findBy(['Fruit' => $Fruit]);
-
-        return $this->render('album/results.html.twig', [
-            'albums' => $albums,
-            'fruit' => $Fruit,
-        ]);
-    }
 }

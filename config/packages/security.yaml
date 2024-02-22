@@ -43,6 +43,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/album, roles: ROLE_USER }
         - { path: ^/music, roles: ROLE_USER }
+        - { path: ^/searchingPage, roles: ROLE_USER }
 
 when@test:
     security:
