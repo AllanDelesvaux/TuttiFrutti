@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<!-- Navbar -->
+
+<style>
+        .custom-navbar {
+            background-color: #FEFCBB; 
+        }
+    </style>
+
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="/">
+      <img
+        src="{{ asset('images/logo.png') }}"
+        height="100" 
+        alt="TuttiFrutti Logo"
+        loading="lazy"
+        style="margin-top: -1px;"
+      />
+    </a>
+
+    <!-- Toggle button -->
+    <button
+      data-mdb-collapse-init
+      class="navbar-toggler"
+      type="button"
+      data-mdb-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <div class="d-flex align-items-center">
+        <a href="/login" data-mdb-ripple-init type="button" class="btn btn-primary me-3">
+          Login
+        </a>
+        <a href="/register" data-mdb-ripple-init type="button" class="btn btn-primary me-3">
+          Register here
+        </a>
+        
+        <a
+          data-mdb-ripple-init
+          class="btn btn-dark px-3"
+          href="https://www.discogs.com/"
+          role="button"
+          ><i class="fab fa-github"></i
+        >Discogs</a>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+<section class="vh-100 bg-image"
+  style="background-image: url('https://blog.trainme.co/wp-content/uploads/2021/06/Images-de-mise-en-avant-et-contenu.png');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+
+            <div class="d-flex justify-content-center mb-5">
+                <img
+                src="{{ asset('images/logo.png') }}"
+                height="100" 
+                alt="TuttiFrutti Logo"
+                loading="lazy"
+                style="margin-top: -1px;"
+                />
+            </div>
+            
+              <h2 class="text-uppercase text-center mb-5"> Bienvenue au paradis des musiques fruitées !</h2>
+
+                <div class="d-flex justify-content-center">
+                    <a href="/album" type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Découvrir nos musiques</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-body-tertiary text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-body" href="/">TuttiFrutti.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+
+{% endblock %}
