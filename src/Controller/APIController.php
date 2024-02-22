@@ -9,11 +9,16 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class APIController extends AbstractController
 {
-    #[Route(path: '/api', name: 'api_content')]
-    public function apiContent(APIAccess $apiAccess): Response
+    public array $searchInformation;
+    #[Route(path: '/search/{fruit}', name: 'fruit_content')]
+    public function apiContent(APIAccess $apiAccess, string $fruit): Response
     {
+        $this->searchInformation = $apiAccess->fetchDiscogsInformation($fruit);
+
         return $this->render('api/api.html.twig', [
-            'albumList' => $apiAccess->fetchDiscogsInformation(),
+            'albumList' => $this->searchInformation,
+            'userResearch' => $fruit,
+            'searchSize' => sizeof($this->searchInformation),
         ]);
     }
 }

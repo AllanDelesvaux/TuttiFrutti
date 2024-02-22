@@ -11,14 +11,9 @@ class APIAccess
     public function __construct(private readonly HttpClientInterface $client,) {
     }
 
-    public function fetchDiscogsInformation(): array
+    public function fetchDiscogsInformation(string $userResearch): array
     {
-        if(isset($_GET['q'])){
-            $externalURL = 'https://api.discogs.com/database/search?q=' . $_GET['q'] . '&type=release&token=' . $this->TOKEN;
-        }
-        else {
-            $externalURL = 'https://api.discogs.com/database/search?type=release&token=' . $this->TOKEN;
-        }
+        $externalURL = 'https://api.discogs.com/database/search?q=' . $userResearch . '&type=release&token=' . $this->TOKEN . '&per_page=' . 10;
 
         $response = $this->client->request(
             'GET',

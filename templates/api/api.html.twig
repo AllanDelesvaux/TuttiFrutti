@@ -4,15 +4,14 @@
 
 {% block body %}
 
-    <header>
-        <form method="GET">
-            <input type="search" name='q' placeholder="Rechercher un fruit..." />
-            <input type="submit" value="Valider" />
-        </form>
-    </header>
-
-    <br>
     <body>
+
+    <form action="{{ path('search_in_api') }}">
+        <button type="submit">Back to Search Page</button>
+    </form>
+
+    <h2>Total de résultat pour {{ userResearch }} : {{ searchSize }}</h2>
+
     {% for album in albumList %}
 
         {% if album['cover_image'] is defined %}
