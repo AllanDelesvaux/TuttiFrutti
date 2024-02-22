@@ -42,6 +42,9 @@ class Album
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'User_Album')]
     private Collection $Album_User;
 
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $Url = null;
+
     public function __construct()
     {
         $this->Album_User = new ArrayCollection();
@@ -171,6 +174,18 @@ class Album
         if ($this->Album_User->removeElement($albumUser)) {
             $albumUser->removeUserAlbum($this);
         }
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->Url;
+    }
+
+    public function setUrl(?string $Url): static
+    {
+        $this->Url = $Url;
 
         return $this;
     }

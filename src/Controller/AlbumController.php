@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Album;
+use App\Entity\User;
 use App\Form\SearchFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,14 +19,15 @@ class AlbumController extends AbstractController
     public function createAlbum(EntityManagerInterface $entityManager): Response
     {
         $album = new Album();
-        $album->setNom('3');
+        $album->setNom('Arise');
         $album->setFruit('banane');
-        $album->setAnnee('');
-        $album->setArtistes('');
-        $album->setLabel('');
-        $album->setGenre('');
-        $album->setFormat('');
-        $album->setTracklist('');
+        $album->setAnnee('2024');
+        $album->setArtistes('top');
+        $album->setLabel('rizz');
+        $album->setGenre('jazz');
+        $album->setFormat('mp4');
+        $album->setTracklist('1. Wow 2. Blabla 3.Ici et laa');
+        $album->setUrl('https://i.discogs.com/1Xuu3z4R1dmTMv8rh9V1lpyNKW9uFtdGXgGydJWnCt0/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc0NDU5/NjEtMTcwNzI0NzI1/NC0zNTIzLmpwZWc.jpeg');
 
         $entityManager->persist($album);
 
@@ -79,21 +81,14 @@ class AlbumController extends AbstractController
     #[Route('/album', name: 'app_album')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $album = $entityManager->getRepository(Album::class)->find(1);
+        $user = $this->getUser();
+        $albums = $user->getUserAlbum();
 
-        return $this->render('accueil/accueil.html.twig', [
-           
-            'nom' => $album->getNom(),
-            'fruit' => $album->getFruit(),
-            'annee' => $album->getAnnee(),
-            'artistes' => $album->getArtistes(),
-            'label' => $album->getLabel(),
-            'genre' => $album->getGenre(),
-            'format' => $album->getFormat(),
-            'tracklist' => $album->getTracklist(),
+        return $this->render('album/accueil.html.twig', [
+            'user' => $user,
+            'albums' => $albums,
         ]);
     }
-
     
     #[Route("/albumsearch", name:"album_search")]
     public function search(Request $request): Response
@@ -106,7 +101,7 @@ class AlbumController extends AbstractController
             return $this->redirectToRoute('album_results', ['Fruit' => $fruit]);
         }
 
-        return $this->render('accueil/search.html.twig', [
+        return $this->render('album/search.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -117,7 +112,7 @@ class AlbumController extends AbstractController
 
         $albums = $entityManager->getRepository(Album::class)->findBy(['Fruit' => $Fruit]);
 
-        return $this->render('accueil/results.html.twig', [
+        return $this->render('album/results.html.twig', [
             'albums' => $albums,
             'fruit' => $Fruit,
         ]);
