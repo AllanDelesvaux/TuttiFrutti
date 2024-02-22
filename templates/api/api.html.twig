@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album{% endblock %}
+
+{% block body %}
+
+    <header>
+        <img src='{{ coverImage }}'/>
+
+        <h1>{{ title }}</h1>
+        <h1>{{ fruit }}</h1>
+        <h1>{{ year }}</h1>
+
+    </header>
+
+    <footer>
+        <p>&copy; 2024 TuttiFrutti</p>
+    </footer>
+
+{% endblock %}

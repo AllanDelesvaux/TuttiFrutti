@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7e43a56b78f43f1d72f1c48d68f614a",
+    "content-hash": "f01054b9cd2dbab394cb8c546c2f2599",
     "packages": [
         {
             "name": "calliostro/php-discogs-api",
@@ -6629,8 +6629,9 @@
     "platform": {
         "php": ">=8.1",
         "ext-ctype": "*",
+        "ext-http": "*",
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
